@@ -7,8 +7,10 @@ functions.
 """
 
 import sys
+import numpy as np
+import bisect
+import random
 from collections import deque
-
 from utils import *
 
 
@@ -421,7 +423,7 @@ def astar_search(problem, h=None, display=False):
 
 
 # ______________________________________________________________________________
-# A* heuristics 
+# A* heuristics
 
 class EightPuzzle(Problem):
     """ The problem of sliding tiles numbered from 1 to 8 on a 3x3 board, where one of the
@@ -487,7 +489,7 @@ class EightPuzzle(Problem):
         return inversion % 2 == 0
 
     def h(self, node):
-        """ Return the heuristic value for a given state. Default heuristic function used is 
+        """ Return the heuristic value for a given state. Default heuristic function used is
         h(n) = number of misplaced tiles """
 
         return sum(s != g for (s, g) in zip(node.state, self.goal))
@@ -673,7 +675,7 @@ def simulated_annealing(problem, schedule=exp_schedule()):
 
 
 def simulated_annealing_full(problem, schedule=exp_schedule()):
-    """ This version returns all the states encountered in reaching 
+    """ This version returns all the states encountered in reaching
     the goal state."""
     states = []
     current = Node(problem.initial)
@@ -994,6 +996,14 @@ def mutate(x, gene_pool, pmut):
 
     new_gene = gene_pool[r]
     return x[:c] + [new_gene] + x[c + 1:]
+
+def weighted_sampler(seq, weights):
+    """Gibt eine Funktion zurück, die zufällig aus seq zieht,
+    proportional zu den Gewichten."""
+    totals = []
+    for w in weights:
+        totals.append(w + totals[-1] if totals else w)
+    return lambda: seq[bisect.bisect(totals, random.uniform(0, totals[-1]))]
 
 
 # _____________________________________________________________________________
