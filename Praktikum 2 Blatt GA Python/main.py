@@ -2,14 +2,17 @@ from search import genetic_algorithm, depth_first_tree_search, NQueensProblem, i
 
 # Creating the problem first
 problem = NQueensProblem(8)
-# list with the numbers [0, 1, 2, 3, 4, 5, 6, 7]
+
+# gene_pool:  List of possible values for individuals
 gene_pool = list(range(8))
+
 # initializing start population
-population = init_population(100,gene_pool,8)
+# pop_number:  Number of individuals in population
+# state_length:  The length of each individual
+population = init_population(200,gene_pool,8)
 
 # Definition of the fitness function
 def fitnessFunction(individual):
-    print(individual)
     return 100 -  total_conflicts(individual) * 3
 
 def total_conflicts(individual):
@@ -29,5 +32,7 @@ def total_conflicts(individual):
                 conflicts += 1
     return conflicts
 
-result = genetic_algorithm(population, fitness_fn=fitnessFunction, f_thres=None, ngen=1000, pmut=0.1)
+#ngen max number of generations
+#pmut mutation probability
+result = genetic_algorithm(population, fitness_fn=fitnessFunction, f_thres=None, ngen=100, pmut=0.2)
 print(result)

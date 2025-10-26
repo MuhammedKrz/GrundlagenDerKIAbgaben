@@ -971,6 +971,7 @@ def select(r, population, fitness_fn):
 def recombine(x, y):
     n = len(x)
     c = random.randrange(0, n)
+    # print("Crossover Stelle: " + str(c))
     return x[:c] + y[c:]
 
 
