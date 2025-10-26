@@ -1,8 +1,5 @@
 from search import genetic_algorithm, depth_first_tree_search, NQueensProblem, init_population
 
-# Creating the problem first
-problem = NQueensProblem(8)
-
 # gene_pool:  List of possible values for individuals
 gene_pool = list(range(8))
 
