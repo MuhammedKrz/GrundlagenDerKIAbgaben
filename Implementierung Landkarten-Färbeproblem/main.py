@@ -50,5 +50,5 @@ def total_conflicts(decodedBit):
         conflicts += 1
     return conflicts
 
-result = genetic_algorithm(population, fitness_fn=fitnessFunction, f_thres=None, ngen=100, pmut=0.2)
+result = genetic_algorithm(population, fitness_fn=fitnessFunction, f_thres=None, ngen=500, pmut=0.2)
 print(result)
