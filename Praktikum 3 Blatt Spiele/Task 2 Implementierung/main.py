@@ -1,16 +1,16 @@
-# This is a sample Python script.
+ticTacToeBoard = []
+print("Bitte geben Sie die Größe der Tic-Tac-Toe Matrix ein:")
+name = input()
+input_a = int(name)
 
-# Press Umschalt+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+if input_a > 2:
+    for i in range(input_a * input_a):
+        ticTacToeBoard.append("#")
 
+    for i in range(len(ticTacToeBoard)):
+        if i % input_a == 0 and i != 0:
+            print()
+        print(ticTacToeBoard[i], end=" ")
+else:
+    print("Bitte geben Sie eine größere Matrixgröße an!")
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Strg+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
