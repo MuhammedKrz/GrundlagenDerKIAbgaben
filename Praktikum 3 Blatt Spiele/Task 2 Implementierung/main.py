@@ -1,8 +1,5 @@
 ticTacToeBoard1 = [0,0,0,0,0,0,0,0,0]
-# Given Tic-Tac-Toe boards for test purposes
-ticTacToeBoard2 = [1,0,0,0,1,0,0,0,0]
-ticTacToeBoard3 = [0,0,0,0,-1,0,0,0,-1]
-
+comparedNodes = 0
 winCombinations = [
     # diagonals
     [0, 4, 8],
@@ -31,12 +28,12 @@ def printBoard(ticTacToeBoard):
 
 def utilityFunction(ticTacToeBoard):
     for i in winCombinations:
-        sum = 0
+        sumM = 0
         for j in i:
-            sum += ticTacToeBoard[j]
-        if sum == 3:
+            sumM += ticTacToeBoard[j]
+        if sumM == 3:
             return 1
-        if sum == -3:
+        if sumM == -3:
             return -1
     if 0 not in ticTacToeBoard:
         return 0
@@ -49,8 +46,10 @@ def countEmptyPositions(state):
             emptyPositions.append(j)
     return emptyPositions
 
-# Max Node
+# Max node function
 def Max(state):
+    global comparedNodes
+    comparedNodes += 1
     endstate = utilityFunction(state)
     if endstate is not None:
         return endstate
@@ -65,6 +64,8 @@ def Max(state):
 
 # Min node function
 def Min(state):
+    global comparedNodes
+    comparedNodes += 1
     endstate = utilityFunction(state)
     if endstate is not None:
         return endstate
@@ -82,15 +83,7 @@ def Min(state):
 # Edges lead to new game states
 # Purpose: Result of a game if both players play perfect
 
-printBoard(ticTacToeBoard1)
-# result 1
+# result
 print(Max(ticTacToeBoard1))
-
-printBoard(ticTacToeBoard2)
-# result 2
-print(Max(ticTacToeBoard2))
-
-printBoard(ticTacToeBoard3)
-# result 3
-print(Max(ticTacToeBoard3))
-
+# Compared Nodes
+print(comparedNodes)
