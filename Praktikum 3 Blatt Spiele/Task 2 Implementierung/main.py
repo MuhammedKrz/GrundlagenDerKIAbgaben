@@ -1,16 +1,44 @@
-ticTacToeBoard = []
-print("Bitte geben Sie die Größe der Tic-Tac-Toe Matrix ein:")
-name = input()
-input_a = int(name)
+# Don't forget -> always alternating
+ticTacToeBoard = [1, 1, -1,
+                   1,-1, 0,
+                  -1, 0, 0]
 
-if input_a > 2:
-    for i in range(input_a * input_a):
-        ticTacToeBoard.append("#")
+winCombinations = [
+    # diagonals
+    [0, 4, 8],
+    [2, 4, 6],
+    # rows
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    # columns
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8]
+]
 
+def printBoard(ticTacToeBoard):
     for i in range(len(ticTacToeBoard)):
-        if i % input_a == 0 and i != 0:
+        if i % 3 == 0 and i != 0:
             print()
-        print(ticTacToeBoard[i], end=" ")
-else:
-    print("Bitte geben Sie eine größere Matrixgröße an!")
+        if ticTacToeBoard[i] == 1:
+            print("X", end=" ")
+        elif ticTacToeBoard[i] == -1:
+            print("O", end=" ")
+        else:
+            print("#", end=" ")
+
+def calculateBoard(ticTacToeBoard):
+    for i in winCombinations:
+        sum = 0
+        for j in i:
+            sum += ticTacToeBoard[j]
+        if sum == 3:
+            return "Player 1 wins"
+        if sum == -3:
+            return "Player 2 wins"
+    return None
+
+print(calculateBoard(ticTacToeBoard))
+printBoard(ticTacToeBoard)
 
