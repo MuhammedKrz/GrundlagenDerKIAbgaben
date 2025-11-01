@@ -47,7 +47,7 @@ def countEmptyPositions(state):
     return emptyPositions
 
 # Max node function
-def Max(state):
+def Max(state,alpha,beta):
     global comparedNodes
     comparedNodes += 1
     endstate = utilityFunction(state)
@@ -57,13 +57,18 @@ def Max(state):
     # Action and subsequent state
     emptyPositions = countEmptyPositions(state)
     for i in emptyPositions:
+        # make move
         state[i] = 1
-        bestScore = max(bestScore, Min(state))
+        bestScore = max(bestScore, Min(state,alpha,beta))
+        # undo move
         state[i] = 0
+        if bestScore >= beta:
+            return bestScore
+        alpha = max(alpha, bestScore)
     return bestScore
 
 # Min node function
-def Min(state):
+def Min(state,alpha,beta):
     global comparedNodes
     comparedNodes += 1
     endstate = utilityFunction(state)
@@ -73,9 +78,14 @@ def Min(state):
     # Action and subsequent state
     emptyPositions = countEmptyPositions(state)
     for i in emptyPositions:
+        # make move
         state[i] = -1
-        bestScore = min(bestScore, Max(state))
+        bestScore = min(bestScore, Max(state,alpha, beta))
+        # undo move
         state[i] = 0
+        if bestScore <= alpha:
+            return bestScore
+        beta = min(beta, bestScore)
     return bestScore
 
 # A node represents a game state
@@ -83,7 +93,7 @@ def Min(state):
 # Edges lead to new game states
 # Purpose: Result of a game if both players play perfect
 
-# result
-print(Max(ticTacToeBoard1))
+# result and initial call
+print(Max(ticTacToeBoard1,float("-inf"),float("+inf")))
 # Compared Nodes
 print(comparedNodes)

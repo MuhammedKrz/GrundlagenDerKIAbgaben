@@ -57,8 +57,10 @@ def Max(state):
     # Action and subsequent state
     emptyPositions = countEmptyPositions(state)
     for i in emptyPositions:
+        # make move
         state[i] = 1
         bestScore = max(bestScore, Min(state))
+        # undo move
         state[i] = 0
     return bestScore
 
@@ -73,8 +75,10 @@ def Min(state):
     # Action and subsequent state
     emptyPositions = countEmptyPositions(state)
     for i in emptyPositions:
+        # make move
         state[i] = -1
         bestScore = min(bestScore, Max(state))
+        # undo move
         state[i] = 0
     return bestScore
 
@@ -83,7 +87,7 @@ def Min(state):
 # Edges lead to new game states
 # Purpose: Result of a game if both players play perfect
 
-# result
+# result and initial call
 print(Max(ticTacToeBoard1))
 # Compared Nodes
 print(comparedNodes)
